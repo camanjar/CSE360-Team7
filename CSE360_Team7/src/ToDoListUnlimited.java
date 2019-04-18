@@ -118,11 +118,11 @@ public class ToDoListUnlimited {
 		frame.getContentPane().add(btnEditItem);
 		
 		JLabel lblSortBy = new JLabel("Sort By:");
-		lblSortBy.setBounds(367, 93, 47, 16);
+		lblSortBy.setBounds(425, 93, 47, 16);
 		frame.getContentPane().add(lblSortBy);
 		
-		JButton btnPrint = new JButton("PRINT");
-		btnPrint.setBounds(541, 88, 117, 29);
+		JButton btnPrint = new JButton(printIcon);
+		btnPrint.setBounds(625, 88, 32, 32);
 		frame.getContentPane().add(btnPrint);
 		
 		JButton btnClearList = new JButton(deleteIcon); 
@@ -131,6 +131,7 @@ public class ToDoListUnlimited {
 				//TODO: Needs functionality
 			}
 		});
+		
 		btnClearList.setBounds(100, 88, 29, 29);
 		frame.getContentPane().add(btnClearList);
 		
@@ -154,7 +155,7 @@ public class ToDoListUnlimited {
 		
 		JComboBox<?> sortBox = new JComboBox<Object>(options);
 		sortBox.setSelectedIndex(0);
-		sortBox.setBounds(414, 89, 126, 27);
+		sortBox.setBounds(480, 89, 126, 27);
 		frame.getContentPane().add(sortBox);
 		
 		/*********************************************************************************/
