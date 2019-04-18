@@ -40,7 +40,7 @@ public class AddNote {
 	/**
 	 * Launch the application.
 	 */
-	public static void NewScreen() {
+	public static void NewAddScreen() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -57,13 +57,13 @@ public class AddNote {
 	 * Create the application.
 	 */
 	public AddNote() {
-		initialize();
+		initializeAdd();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initializeAdd() {
 		frame = new JFrame("Add a new note");
 		frame.setBounds(100, 100, 452, 305);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

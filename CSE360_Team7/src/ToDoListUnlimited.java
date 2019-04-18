@@ -99,7 +99,7 @@ public class ToDoListUnlimited {
 		btnAddItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddNote newNote = new AddNote();
-				newNote.NewScreen();
+				newNote.NewAddScreen();
 			}
 		});
 		
@@ -110,7 +110,7 @@ public class ToDoListUnlimited {
 		btnEditItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddNote newNote = new AddNote();
-				newNote.NewScreen();
+				newNote.NewAddScreen();
 			}
 		});
 		
@@ -140,15 +140,15 @@ public class ToDoListUnlimited {
 		frame.getContentPane().add(lblDescription);
 		
 		JLabel lblDueDate = new JLabel("DUE DATE");
-		lblDueDate.setBounds(191, 130, 84, 16);
+		lblDueDate.setBounds(180, 130, 84, 16);
 		frame.getContentPane().add(lblDueDate);
 		
 		JLabel lblStatus = new JLabel("STATUS");
-		lblStatus.setBounds(317, 130, 61, 16);
+		lblStatus.setBounds(340, 130, 61, 16);
 		frame.getContentPane().add(lblStatus);
 		
 		JLabel lblAction = new JLabel("PRIORITY");
-		lblAction.setBounds(479, 130, 61, 16);
+		lblAction.setBounds(500, 130, 61, 16);
 		frame.getContentPane().add(lblAction);
 		
 		String[] options = {"Priority", "Due Date", "Name"};
