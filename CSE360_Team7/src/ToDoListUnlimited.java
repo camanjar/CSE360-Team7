@@ -7,14 +7,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import java.awt.Image;
 
 import javax.swing.JComboBox;
 import javax.swing.JMenuBar;
 import java.awt.Panel;
 import javax.swing.JTable;
 import javax.swing.JSeparator;
-import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
 import javax.swing.JPanel;
@@ -33,10 +31,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.BevelBorder;
-import javax.swing.UIManager;
 import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ToDoListUnlimited {
 

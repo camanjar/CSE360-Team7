@@ -153,21 +153,18 @@ public class AddNote {
 						
 						UserNotes newNote = new UserNotes(description, duedate, priority);
 						
-						////////////// STATUS ///////////////
-						String[] actions = {"In Progress", "Not Started", "Done"};
-						JComboBox<?> statusBox = new JComboBox<Object>(actions);
-						frame.getContentPane().add(comboBox);
-						statusBox.setSelectedIndex(0); //TODO
+						////////////// STATUS ////////////
+						//TODO
 						
 						TableColumn status = ToDoListUnlimited.table.getColumnModel().getColumn(2);
-						status.setCellEditor(new DefaultCellEditor(statusBox));
+						status.setCellEditor(new DefaultCellEditor(comboBox));
 						
 						DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 				        renderer.setToolTipText("Click for combo box");
 				        status.setCellRenderer(renderer);
 				        ///////////// STATUS ////////////////
 				        
-						Object[] insert = {newNote.getDescription(), newNote.getDueDate(), statusBox.getSelectedItem().toString(), newNote.getPriority()};
+						Object[] insert = {newNote.getDescription(), newNote.getDueDate(), comboBox.getSelectedItem().toString(), newNote.getPriority()};
 						ToDoListUnlimited.info[ToDoListUnlimited.index] = insert;
 						ToDoListUnlimited.frame.repaint();
 						ToDoListUnlimited.index++;
