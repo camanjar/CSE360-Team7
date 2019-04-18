@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JComboBox;
 import javax.swing.JMenuBar;
 import java.awt.Panel;
@@ -23,8 +25,11 @@ import javax.swing.table.TableColumn;
 //import Buttons.ButtonListener;
 
 import javax.swing.JFormattedTextField;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DropMode;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.BevelBorder;
@@ -42,6 +47,12 @@ public class ToDoListUnlimited {
 	public JButton btnAddItem;
 	public static Object[][] info = new Object[50][4];
 	private static int iteration = 3;
+	
+	//ICONS
+	ImageIcon addIcon = new ImageIcon("add.png");
+	ImageIcon editIcon = new ImageIcon("edit.png");
+	ImageIcon deleteIcon = new ImageIcon("delete.png");
+	ImageIcon printIcon = new ImageIcon("print.png");
 
 	/**
 	 * Launch the application.
@@ -84,7 +95,7 @@ public class ToDoListUnlimited {
 		lblTodoListUnlimited.setToolTipText("Displays application name");
 		frame.getContentPane().add(lblTodoListUnlimited);
 		
-		btnAddItem = new JButton("ADD ITEM");
+		btnAddItem = new JButton(addIcon);
 		btnAddItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddNote newNote = new AddNote();
@@ -92,8 +103,19 @@ public class ToDoListUnlimited {
 			}
 		});
 		
-		btnAddItem.setBounds(20, 88, 117, 29);
+		btnAddItem.setBounds(20, 88, 29, 29);
 		frame.getContentPane().add(btnAddItem);
+		
+		JButton btnEditItem = new JButton(editIcon);
+		btnEditItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddNote newNote = new AddNote();
+				newNote.NewScreen();
+			}
+		});
+		
+		btnEditItem.setBounds(60, 88, 29, 29);
+		frame.getContentPane().add(btnEditItem);
 		
 		JLabel lblSortBy = new JLabel("Sort By:");
 		lblSortBy.setBounds(367, 93, 47, 16);
@@ -103,13 +125,13 @@ public class ToDoListUnlimited {
 		btnPrint.setBounds(541, 88, 117, 29);
 		frame.getContentPane().add(btnPrint);
 		
-		JButton btnClearList = new JButton("CLEAR LIST"); 
+		JButton btnClearList = new JButton(deleteIcon); 
 		btnClearList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO: Needs functionality
 			}
 		});
-		btnClearList.setBounds(158, 88, 117, 29);
+		btnClearList.setBounds(100, 88, 29, 29);
 		frame.getContentPane().add(btnClearList);
 		
 		JLabel lblDescription = new JLabel("DESCRIPTION");

@@ -186,7 +186,7 @@ public class AddNote {
 		}
 	
 	///////// THE MOST IMPORTANT METHOD OF ALL TIME IS HERE //////
-	//////// ACTUALLY THIS METHOD IS COMPLETELY USELESS :D
+	//////// ACTUALLY THIS METHOD IS COMPLETELY USELESS :D ///////
 	
 //	public Object[] returnNote(JFrame f) {
 //		UserNotes newNote = new UserNotes(description, duedate, priority);
