@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-
 import javax.swing.JComboBox;
 import javax.swing.JMenuBar;
 import java.awt.Panel;
@@ -19,9 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
-
-//import Buttons.ButtonListener;
-
 import javax.swing.JFormattedTextField;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultCellEditor;
@@ -77,7 +73,7 @@ public class ToDoListUnlimited {
 	 */
 	private void initialize() {
 		
-		frame = new JFrame("To-Do List Unlimited");
+		frame = new JFrame("To-Do List Unlimited 2019");
 		frame.getContentPane().setBackground(SystemColor.window);
 		frame.setBounds(150, 150, 675, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,8 +100,8 @@ public class ToDoListUnlimited {
 		JButton btnEditItem = new JButton(editIcon);
 		btnEditItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddNote newNote = new AddNote();
-				newNote.NewAddScreen();
+				EditNote editNote = new EditNote();
+				editNote.NewEditScreen();
 			}
 		});
 		
@@ -120,15 +116,35 @@ public class ToDoListUnlimited {
 		btnPrint.setBounds(625, 88, 32, 32);
 		frame.getContentPane().add(btnPrint);
 		
-		JButton btnClearList = new JButton(deleteIcon); 
-		btnClearList.addActionListener(new ActionListener() {
+		JButton btnDeleteList = new JButton(deleteIcon); 
+		btnDeleteList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO: Needs functionality
 			}
 		});
 		
-		btnClearList.setBounds(100, 88, 29, 29);
-		frame.getContentPane().add(btnClearList);
+		btnDeleteList.setBounds(100, 88, 29, 29);
+		frame.getContentPane().add(btnDeleteList);
+		
+		JButton btnSaveList = new JButton("Save"); 
+		btnSaveList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO: Needs functionality
+			}
+		});
+		
+		btnSaveList.setBounds(135, 90, 80, 27);
+		frame.getContentPane().add(btnSaveList);
+		
+		JButton btnResetList = new JButton("Start Over"); 
+		btnResetList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO: Needs functionality
+			}
+		});
+		
+		btnResetList.setBounds(210, 90, 95, 27);
+		frame.getContentPane().add(btnResetList);
 		
 		JLabel lblDescription = new JLabel("DESCRIPTION");
 		lblDescription.setBounds(20, 130, 100, 16);

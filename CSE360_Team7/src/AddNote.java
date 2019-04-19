@@ -10,24 +10,24 @@ import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
-
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;   
 import java.awt.Font;
-import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class AddNote {
 
-	private JFrame frame;
-	private JTextField descriptionField;
-	private String description;
-	private String duedate;
-	private String[] status;
-	private String priority;
+	protected JFrame frame;
+	protected JTextField descriptionField;
+	protected String description;
+	protected String duedate;
+	protected String dateStarted;
+	protected String priority;
 	
-	private Integer[] MONTHS = {1,2,3,4,5,6,7,8,9,10,11,12};
-	private Integer[] DAYS = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
-	private Integer[] YEARS = { 
+	protected Integer[] MONTHS = {1,2,3,4,5,6,7,8,9,10,11,12};
+	protected Integer[] DAYS = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
+	protected Integer[] YEARS = { 
 			2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037,
 			2038, 2039, 2040, 2041, 2042, 2043, 2044, 2045, 2046, 2047, 2048, 2049, 2050, 2051, 2052, 2053, 2054, 2055, 2056, 
 			2057, 2058, 2059, 2060, 2061, 2062, 2063, 2064, 2065, 2066, 2067, 2068, 2069, 2070, 2071, 2072, 2073, 2074, 2075, 
@@ -35,7 +35,7 @@ public class AddNote {
 			2095, 2096, 2097, 2098, 2099, 2100, 2101, 2102, 2103, 2104, 2105, 2106, 2107, 2108, 2109, 2110, 2111, 2112, 2113, 
 			2114, 2115, 2116, 2117, 2118, };
 	
-	private JTextField priorityField;
+	protected JTextField priorityField;
 
 	/**
 	 * Launch the application.
@@ -99,15 +99,15 @@ public class AddNote {
 		
 		/////// CALENDAR ///////
 		
-		JComboBox monthsBox = new JComboBox(MONTHS);
+		JComboBox<?> monthsBox = new JComboBox<Object>(MONTHS);
 		monthsBox.setBounds(79, 104, 84, 27);
 		frame.getContentPane().add(monthsBox);
 		
-		JComboBox daysBox = new JComboBox(DAYS);
+		JComboBox<?> daysBox = new JComboBox<Object>(DAYS);
 		daysBox.setBounds(175, 104, 76, 27);
 		frame.getContentPane().add(daysBox);
 		
-		JComboBox yearBox = new JComboBox(YEARS);
+		JComboBox<?> yearBox = new JComboBox<Object>(YEARS);
 		yearBox.setBounds(263, 104, 95, 27);
 		frame.getContentPane().add(yearBox);
 		
@@ -123,8 +123,7 @@ public class AddNote {
 		frame.getContentPane().add(lblAddANew);
 		
 		/************************************************************************/
-		// The following does all the stuff to properly add all info 
-		//TODO: I can't get the combo box to render automatically
+		// The following does all the stuff to properly add all info
 		/************************************************************************/
 		
 		JButton btnEnter = new JButton("Enter");
@@ -135,27 +134,40 @@ public class AddNote {
 						daysBox.getSelectedItem().toString() + "/" + 
 						yearBox.getSelectedItem().toString();
 				priority = priorityField.getText();
-				System.out.println(priority);
+				
+				/////////DATE CREATED//////
+
+				DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+				LocalDateTime rightNow = LocalDateTime.now(); 
+				dateStarted = date.format(rightNow);
+				System.out.println(dateStarted);
+				
 				if(description.equals("") || priority.equals("")) { 
 					JOptionPane.showMessageDialog(frame,
 						    "Please fill out the entire form before continuing",
 						    "Warning",
 						    JOptionPane.WARNING_MESSAGE);
+					
+				//TODO: Check uniqueness of the note!
+				//} 
+//				else if (isUnique(ToDoListUnlimited.info, descriptionField.getText())) { 
+//					JOptionPane.showMessageDialog(frame,
+//						    "Description is not unique,",
+//						    "Error",
+//						    JOptionPane.ERROR_MESSAGE);
 				} else { 
 					
 					if(!isNumeric(priorityField.getText())) { 
 						JOptionPane.showMessageDialog(frame,
-							    "Priority should be a numerical value\n Example: 1",
+							    "Priority should be an integer value\n Example: 1",
 							    "Error",
 							    JOptionPane.ERROR_MESSAGE);
 						
 					} else {
 						
-						UserNotes newNote = new UserNotes(description, duedate, priority);
+						UserNotes newNote = new UserNotes(description, duedate, priority, dateStarted);
 						
 						////////////// STATUS ////////////
-						//TODO
-						
 						TableColumn status = ToDoListUnlimited.table.getColumnModel().getColumn(2);
 						status.setCellEditor(new DefaultCellEditor(comboBox));
 						
@@ -164,7 +176,8 @@ public class AddNote {
 				        status.setCellRenderer(renderer);
 				        ///////////// STATUS ////////////////
 				        
-						Object[] insert = {newNote.getDescription(), newNote.getDueDate(), comboBox.getSelectedItem().toString(), newNote.getPriority()};
+						Object[] insert = {newNote.getDescription(), newNote.getDueDate(), 
+								comboBox.getSelectedItem().toString(), newNote.getPriority()};
 						ToDoListUnlimited.info[ToDoListUnlimited.index] = insert;
 						ToDoListUnlimited.frame.repaint();
 						ToDoListUnlimited.index++;
@@ -178,18 +191,22 @@ public class AddNote {
 		frame.getContentPane().add(btnEnter);
 	}
 	
-	public static boolean isNumeric(String str) {
+	private static boolean isNumeric(String str) {
 		  return str.matches("-?\\d+(\\.\\d+)?");  
 		}
 	
-	///////// THE MOST IMPORTANT METHOD OF ALL TIME IS HERE //////
-	//////// ACTUALLY THIS METHOD IS COMPLETELY USELESS :D ///////
-	
-//	public Object[] returnNote(JFrame f) {
-//		UserNotes newNote = new UserNotes(description, duedate, priority);
-//		Object[] insert = {newNote.getDescription(), newNote.getDueDate(), " ", newNote.getPriority()};
-//		f.repaint();
-//		return insert; 
+	//TODO:  Attempted code to check uniqueness of description
+//	private static boolean isUnique(Object[][] obj, String s) { 
+//		UserNotes dummy = new UserNotes(obj[][]);
+//			for (int i = 0; i < obj.length; i++) {
+//				for (int j = 0; j < obj[i].length; j++) {
+//					if (obj[i].equals(s)) { 
+//						return true; 
+//					}
+//				}
+//			}
+//		return false;
 //	}
-	
 }
+	
+

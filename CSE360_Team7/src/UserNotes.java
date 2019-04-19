@@ -4,7 +4,9 @@ public class UserNotes {
 	private String description; 
 	private String dueDate; 
 	private String priority;
-	private enum STATUS { INPROGRESS, NOTSTARTED, FINISHED };
+	private String dateStarted; 
+	private String dateFinished;
+	//private enum STATUS { INPROGRESS, NOTSTARTED, FINISHED }; NOT NEEDED
 	
 	public UserNotes() { 
 		this.description = "";
@@ -13,7 +15,7 @@ public class UserNotes {
 	}
 	
 	
-	public UserNotes(String description, String dueDate, String priority) {
+	public UserNotes(String description, String dueDate, String priority, String dateStarted) {
 		this.description = description;
 		this.dueDate = dueDate;
 		this.priority = priority;
@@ -36,10 +38,30 @@ public class UserNotes {
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
+
+	public String getDateStarted() {
+		return dateStarted;
+	}
+
+
+	public void setDateStarted(String dateStarted) {
+		this.dateStarted = dateStarted;
+	}
+
+
+	public String getDateFinished() {
+		return dateFinished;
+	}
+
+
+	public void setDateFinished(String dateFinished) {
+		this.dateFinished = dateFinished;
+	};
 	
 	@Override
 	public String toString() {
-		return "UserNotes [description=" + description + ", dueDate=" + dueDate + ", priority=" + priority + "]";
-	};
+		return "UserNotes [description=" + description + ", dueDate=" + dueDate + 
+				", priority=" + priority + ", dateStarted=" + dateStarted + ", dateFinished=" + dateFinished + "]";
+	}
 	
 }
