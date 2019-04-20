@@ -6,19 +6,22 @@ public class UserNotes {
 	private String priority;
 	private String dateStarted; 
 	private String dateFinished;
+	private String status;
 	//private enum STATUS { INPROGRESS, NOTSTARTED, FINISHED }; NOT NEEDED
 	
 	public UserNotes() { 
 		this.description = "";
 		this.dueDate = "";
 		this.priority = ""; 
+		this.status = "";
 	}
 	
 	
-	public UserNotes(String description, String dueDate, String priority, String dateStarted) {
+	public UserNotes(String description, String dueDate, String priority, String status) {
 		this.description = description;
 		this.dueDate = dueDate;
 		this.priority = priority;
+		this.status = status;
 	}
 	public String getDescription() {
 		return description;
@@ -33,6 +36,9 @@ public class UserNotes {
 		this.dueDate = dueDate;
 	}
 	public String getPriority() {
+		return priority;
+	}
+	public String getStatus() {
 		return priority;
 	}
 	public void setPriority(String priority) {

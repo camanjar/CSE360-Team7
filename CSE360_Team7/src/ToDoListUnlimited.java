@@ -3,6 +3,8 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -17,7 +19,10 @@ import javax.swing.JScrollBar;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JFormattedTextField;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultCellEditor;
@@ -25,7 +30,9 @@ import javax.swing.DropMode;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
+import javax.swing.RowSorter;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SortOrder;
 import javax.swing.border.BevelBorder;
 import java.awt.SystemColor;
 
@@ -38,12 +45,87 @@ public class ToDoListUnlimited {
 	public JButton btnAddItem;
 	public static Object[][] info = new Object[50][4];
 	private static int iteration = 3;
+	private static int sortingPreference = 0;
 	
 	//ICONS
 	ImageIcon addIcon = new ImageIcon("add.png");
 	ImageIcon editIcon = new ImageIcon("edit.png");
 	ImageIcon deleteIcon = new ImageIcon("delete.png");
 	ImageIcon printIcon = new ImageIcon("print.png");
+	
+	public static void sortByFeature() {
+		if(sortingPreference == 0 ) // Priority
+			sortByPriority();
+		else
+			sortByDescription();
+	}
+		
+	public static void setSortingPreference(int preference) {
+		sortingPreference = preference;
+		sortByFeature();
+		frame.repaint();
+	}
+	
+	public static void sortByPriority() {
+		if(index > 0) // only sorts if atleast 2 item is present
+		{
+				  int n = info.length;
+				        for (int row = 0; row < index; row++) {
+				        	 for (int nextRow = 0; nextRow < index - row - 1; nextRow++) {
+				            Integer priority = Integer.parseInt(info[nextRow][3].toString());
+				            Integer priority2 = Integer.parseInt(info[nextRow + 1][3].toString());
+				                if (priority > priority2)
+				                { 
+				                    // swap the two rows
+				            		swapRows(nextRow);
+				                } 
+				        }
+				        }
+		}
+		
+	}
+	
+	public static void sortByDescription() {
+		
+		if(index > 0) // only sorts if atleast 2 item is present
+		{
+				  int n = info.length;
+				        for (int row = 0; row < index; row++) {
+				        	 for (int nextRow = 0; nextRow < index - row - 1 ; nextRow++) {
+				        		
+				        		String description1 = info[nextRow][0].toString();
+				        		String description2 = info[nextRow + 1][0].toString();
+				        		 
+				                if (description1.compareTo(description2) > 0)
+				                { 
+				                    // swap the two rows
+				                	swapRows(nextRow);
+				            	
+				                } 
+				    
+				        }
+				        }
+		}
+		
+	}
+	
+	private static void swapRows(int index)
+	{
+		UserNotes tempNote = new UserNotes(
+				info[index][0].toString(),
+				info[index][1].toString(),
+				info[index][2].toString(),
+				info[index][3].toString());
+		
+//
+        info[index] = info[index+1]; 
+        Object[] insert = {tempNote.getDescription(), tempNote.getDueDate(), 
+				tempNote.getStatus(), tempNote.getPriority()};
+        info[index+1] = insert;
+		
+	}
+	
+	
 
 	/**
 	 * Launch the application.
@@ -158,22 +240,48 @@ public class ToDoListUnlimited {
 		lblStatus.setBounds(340, 130, 61, 16);
 		frame.getContentPane().add(lblStatus);
 		
+
+		JLabel lblDateStartedFinished = new JLabel("DATE STARTED / FINISHED");
+		lblStatus.setBounds(340, 130, 61, 16);
+		frame.getContentPane().add(lblDateStartedFinished);
+		
+		
 		JLabel lblAction = new JLabel("PRIORITY");
 		lblAction.setBounds(500, 130, 61, 16);
 		frame.getContentPane().add(lblAction);
 		
-		String[] options = {"Priority", "Due Date", "Name"};
+		String[] options = {"Priority", "Description"};
 		
 		JComboBox<?> sortBox = new JComboBox<Object>(options);
 		sortBox.setSelectedIndex(0);
 		sortBox.setBounds(480, 89, 126, 27);
 		frame.getContentPane().add(sortBox);
+		// On change of sort preference, do a new sort on the view
+		sortBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setSortingPreference(sortBox.getSelectedIndex());
+		
+			}
+		});
 		
 		/*********************************************************************************/
 		// THE TABLE
 		/*********************************************************************************/
 		
-		String[] columnNames = {"Descrption", "Due Date", "Status", "Action"};
+		String[] columnNames = {"Description", "Due Date", "Status", "Priority"};
+//		DefaultTableModel tableModel = new DefaultTableModel(info, columnNames);
+//		
+//		JTable table = new JTable(tableModel);
+//		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(table.getModel());
+//		table.setRowSorter(sorter);
+//		
+//		List<RowSorter.SortKey> sortKeys = new ArrayList<>(25);
+//		sortKeys.add(new RowSorter.SortKey(2, SortOrder.ASCENDING));
+//		sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+//		sorter.setSortKeys(sortKeys);
+//		
+//		table.setModel(tableModel);
+
 		table = new JTable(info, columnNames);
 		table.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		table.setFont(new Font("Lucida Grande", Font.PLAIN, 15));

@@ -164,8 +164,9 @@ public class AddNote {
 							    JOptionPane.ERROR_MESSAGE);
 						
 					} else {
+						String noteStatus = comboBox.getSelectedItem().toString();
 						
-						UserNotes newNote = new UserNotes(description, duedate, priority, dateStarted);
+						UserNotes newNote = new UserNotes(description, duedate, priority, noteStatus);
 						
 						////////////// STATUS ////////////
 						TableColumn status = ToDoListUnlimited.table.getColumnModel().getColumn(2);
@@ -177,10 +178,12 @@ public class AddNote {
 				        ///////////// STATUS ////////////////
 				        
 						Object[] insert = {newNote.getDescription(), newNote.getDueDate(), 
-								comboBox.getSelectedItem().toString(), newNote.getPriority()};
+								newNote.getStatus(), newNote.getPriority()};
 						ToDoListUnlimited.info[ToDoListUnlimited.index] = insert;
-						ToDoListUnlimited.frame.repaint();
 						ToDoListUnlimited.index++;
+						ToDoListUnlimited.sortByFeature();
+						ToDoListUnlimited.frame.repaint();
+				
 						frame.dispose();
 					}
 				}
