@@ -53,77 +53,7 @@ public class ToDoListUnlimited {
 	ImageIcon deleteIcon = new ImageIcon("delete.png");
 	ImageIcon printIcon = new ImageIcon("print.png");
 	
-	public static void sortByFeature() {
-		if(sortingPreference == 0 ) // Priority
-			sortByPriority();
-		else
-			sortByDescription();
-	}
-		
-	public static void setSortingPreference(int preference) {
-		sortingPreference = preference;
-		sortByFeature();
-		frame.repaint();
-	}
-	
-	public static void sortByPriority() {
-		if(index > 0) // only sorts if atleast 2 item is present
-		{
-				  int n = info.length;
-				        for (int row = 0; row < index; row++) {
-				        	 for (int nextRow = 0; nextRow < index - row - 1; nextRow++) {
-				            Integer priority = Integer.parseInt(info[nextRow][3].toString());
-				            Integer priority2 = Integer.parseInt(info[nextRow + 1][3].toString());
-				                if (priority > priority2)
-				                { 
-				                    // swap the two rows
-				            		swapRows(nextRow);
-				                } 
-				        }
-				        }
-		}
-		
-	}
-	
-	public static void sortByDescription() {
-		
-		if(index > 0) // only sorts if atleast 2 item is present
-		{
-				  int n = info.length;
-				        for (int row = 0; row < index; row++) {
-				        	 for (int nextRow = 0; nextRow < index - row - 1 ; nextRow++) {
-				        		
-				        		String description1 = info[nextRow][0].toString();
-				        		String description2 = info[nextRow + 1][0].toString();
-				        		 
-				                if (description1.compareTo(description2) > 0)
-				                { 
-				                    // swap the two rows
-				                	swapRows(nextRow);
-				            	
-				                } 
-				    
-				        }
-				        }
-		}
-		
-	}
-	
-	private static void swapRows(int index)
-	{
-		UserNotes tempNote = new UserNotes(
-				info[index][0].toString(),
-				info[index][1].toString(),
-				info[index][2].toString(),
-				info[index][3].toString());
-		
-//
-        info[index] = info[index+1]; 
-        Object[] insert = {tempNote.getDescription(), tempNote.getDueDate(), 
-				tempNote.getStatus(), tempNote.getPriority()};
-        info[index+1] = insert;
-		
-	}
+
 	
 	
 
@@ -269,19 +199,6 @@ public class ToDoListUnlimited {
 		/*********************************************************************************/
 		
 		String[] columnNames = {"Description", "Due Date", "Status", "Priority"};
-//		DefaultTableModel tableModel = new DefaultTableModel(info, columnNames);
-//		
-//		JTable table = new JTable(tableModel);
-//		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(table.getModel());
-//		table.setRowSorter(sorter);
-//		
-//		List<RowSorter.SortKey> sortKeys = new ArrayList<>(25);
-//		sortKeys.add(new RowSorter.SortKey(2, SortOrder.ASCENDING));
-//		sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
-//		sorter.setSortKeys(sortKeys);
-//		
-//		table.setModel(tableModel);
-
 		table = new JTable(info, columnNames);
 		table.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		table.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
@@ -289,5 +206,103 @@ public class ToDoListUnlimited {
 		frame.getContentPane().add(table);
 		
 	}
+	
+	/*********************************************************************************/
+	// SORTING HELPER FUNCTIONS TABLE
+	/*********************************************************************************/
+	
+	/**
+	 * General function to set sorting preference and automatically trigger using the new sort. 
+	 * Sorting preference of 0 is sort by priority.
+	 * Sorting preference of 1 is sort by description.
+	 */
+	public static void setSortingPreference(int preference) {
+		sortingPreference = preference;
+		sortByFeature();
+		frame.repaint();
+	}
+	
+	/**
+	 * General function to sort, relies of the user specified sorting preference. 
+	 * 
+	 *
+	 */
+	public static void sortByFeature() {
+		if(sortingPreference == 0 ) // Priority
+			sortByPriority();
+		else
+			sortByDescription();
+	}
+		
+	/**
+	 * Helper function to sort by priority
+	 */
+
+	public static void sortByPriority() {
+		if(index > 0) // only sorts if atleast 2 item is present
+		{
+				  int n = info.length;
+				        for (int row = 0; row < index; row++) {
+				        	 for (int nextRow = 0; nextRow < index - row - 1; nextRow++) {
+				            Integer priority = Integer.parseInt(info[nextRow][3].toString());
+				            Integer priority2 = Integer.parseInt(info[nextRow + 1][3].toString());
+				                if (priority > priority2)
+				                { 
+				                    // swap the two rows
+				            		swapRows(nextRow);
+				                } 
+				        }
+				        }
+		}
+		
+	}
+	
+	/**
+	 * Helper function to sort by description
+	 */
+	public static void sortByDescription() {
+		
+		if(index > 0) // only sorts if atleast 2 item is present
+		{
+				  int n = info.length;
+				        for (int row = 0; row < index; row++) {
+				        	 for (int nextRow = 0; nextRow < index - row - 1 ; nextRow++) {
+				        		
+				        		String description1 = info[nextRow][0].toString();
+				        		String description2 = info[nextRow + 1][0].toString();
+				        		 
+				                if (description1.compareTo(description2) > 0)
+				                { 
+				                    // swap the two rows
+				                	swapRows(nextRow);
+				            	
+				                } 
+				    
+				        }
+				        }
+		}
+		
+	}
+	
+	/**
+	 * Helper function for bubbble sort. Swaps the row at the index provided
+	 * and the subsequent row.
+	 */
+	private static void swapRows(int index)
+	{
+		UserNotes tempNote = new UserNotes(
+				info[index][0].toString(),
+				info[index][1].toString(),
+				info[index][2].toString(),
+				info[index][3].toString());
+		
+//
+        info[index] = info[index+1]; 
+        Object[] insert = {tempNote.getDescription(), tempNote.getDueDate(), 
+				tempNote.getStatus(), tempNote.getPriority()};
+        info[index+1] = insert;
+		
+	}
+	
 }
 
