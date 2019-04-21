@@ -184,6 +184,12 @@ public class AddNote {
 						ToDoListUnlimited.sortByFeature();
 						ToDoListUnlimited.frame.repaint();
 				
+						try {
+							ToDoListUnlimited.serializeList(ToDoListUnlimited.info);
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+						
 						frame.dispose();
 					}
 				}

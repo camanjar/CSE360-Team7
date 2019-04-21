@@ -3,6 +3,11 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -75,15 +80,18 @@ public class ToDoListUnlimited {
 
 	/**
 	 * Create the application.
+	 * @throws Exception 
 	 */
-	public ToDoListUnlimited() {
+	public ToDoListUnlimited() throws Exception {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws Exception 
 	 */
-	private void initialize() {
+	private void initialize() throws Exception {
+		info = deserializeList();
 		
 		frame = new JFrame("To-Do List Unlimited 2019");
 		frame.getContentPane().setBackground(SystemColor.window);
@@ -303,6 +311,207 @@ public class ToDoListUnlimited {
         info[index+1] = insert;
 		
 	}
+	/*********************************************************************************/
+	// Serialization
+	/*********************************************************************************/
 	
+	
+	/*
+	 * This Function Will serialize the 2d array in to seperate files depending on how many colums are in the array
+	 * Simply input the 2d array with all the userData and it will serialze that data into different files in the respository
+	 */
+	public static void serializeList(Object[][] list) throws Exception {
+		
+		ArrayList<Object> dList = new ArrayList<>();
+		ArrayList<Object> dateList = new ArrayList<>();
+		ArrayList<Object> pList = new ArrayList<>();
+		ArrayList<Object> sList = new ArrayList<>();
+		
+		for (int i = 0; i < 50 ;i++) {
+			dList.add(list[i][0]);
+		}
+		
+		for (int i = 0; i < 50 ;i++) {
+			pList.add(list[i][3]);
+		}
+		
+		for (int i = 0; i < 50 ;i++) {
+			dateList.add(list[i][1]);
+		}
+		
+		for (int i = 0; i < 50 ;i++) {
+			sList.add(list[i][2]);
+		}
+		
+		try {
+			FileOutputStream fos = new FileOutputStream("Descriptions");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(dList);
+			oos.close();
+			fos.close();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		
+		try {
+			FileOutputStream fos = new FileOutputStream("Dates");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(dateList);
+			oos.close();
+			fos.close();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		
+		try {
+			FileOutputStream fos = new FileOutputStream("Statuses");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(sList);
+			oos.close();
+			fos.close();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		
+		try {
+			FileOutputStream fos = new FileOutputStream("Priorities");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(pList);
+			oos.close();
+			fos.close();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
+	
+	
+	
+	/*
+	 * This will deserialize the TaskList File and return an Arraylist that was previously used or saved
+	 * @return ArrayList
+	 */
+	public static Object[][] deserializeList() throws Exception{
+		
+		//Creates all the array lists for each Colum of the 2d array
+		ArrayList<Object> dList = new ArrayList<>();
+		ArrayList<Object> dateList = new ArrayList<>();
+		ArrayList<Object> pList = new ArrayList<>();
+		ArrayList<Object> sList = new ArrayList<>();
+		Object[][] info = new Object[50][4];
+		
+		info[0][0] = "Example Desc";
+		info[0][1] = "01/01/2019";
+		info[0][2] = "Done";
+		info[0][3] = "1";
+		
+		
+		//This Deserializes the Descriptions
+		try
+        {
+            FileInputStream fis = new FileInputStream("Descriptions");
+            ObjectInputStream ois = new ObjectInputStream(fis); 
+            dList = (ArrayList) ois.readObject(); 
+            ois.close();
+            fis.close();     
+        }
+        catch (IOException ioe)
+        {
+            ioe.printStackTrace();
+        }
+        catch (ClassNotFoundException c)
+        {
+            System.out.println("Class not found");
+            c.printStackTrace();
+            return info;
+        }
+		
+		
+		//This Deserializes the Due Dates
+		try
+        {
+            FileInputStream fis = new FileInputStream("Dates");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            dateList = (ArrayList) ois.readObject();
+            ois.close();
+            fis.close();
+            
+        }
+        catch (IOException ioe)
+        {
+            ioe.printStackTrace();
+            return info;
+        }
+        catch (ClassNotFoundException c)
+        {
+            System.out.println("Class not found");
+            c.printStackTrace();
+            return info;
+        }
+		
+		
+		//This Deserializes the Status
+		try
+        {
+            FileInputStream fis = new FileInputStream("Statuses");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            sList = (ArrayList) ois.readObject();
+            ois.close();
+            fis.close();
+        }
+        catch (IOException ioe)
+        {
+            ioe.printStackTrace();
+            return info;
+        }
+        catch (ClassNotFoundException c)
+        {
+            System.out.println("Class not found");
+            c.printStackTrace();
+            return info;
+        }
+		
+		
+		//This Deserializes the priorities
+		try
+        {
+            FileInputStream fis = new FileInputStream("Priorities");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            pList = (ArrayList) ois.readObject();
+            ois.close();
+            fis.close(); 
+        }
+        catch (IOException ioe)
+        {
+            ioe.printStackTrace();
+            return info;
+        }
+        catch (ClassNotFoundException c)
+        {
+            System.out.println("Class not found");
+            c.printStackTrace();
+            return info;
+        }
+		
+		//This does the descriptions
+		for (int i = 0; i < 50 ;i++) {
+			info[i][0] = dList.get(i);
+		}
+		
+		//This does the Priority
+		for (int i = 0; i < 50 ;i++) {
+			info[i][3] = pList.get(i);
+		}
+		
+		//This does the due Dates
+		for (int i = 0; i < 50 ;i++) {
+			info[i][1] = dateList.get(i);
+		}
+		
+		//This does the Status
+		for (int i = 0; i < 50 ;i++) {
+			info[i][2] = sList.get(i);
+		}
+		return info;
+	}
 }
 
