@@ -44,10 +44,10 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SortOrder;
 import javax.swing.border.BevelBorder;
 import java.awt.SystemColor;
-//APR21
+//New Addition
 public class ToDoListUnlimited { 
 
-	// CREATE GETTERS & SETTERS TO ENCAPSULATE THIS CLASS
+	
 	private static File chosenFile;
 	public static JFrame frame;
 	public static int index;
@@ -92,9 +92,10 @@ public class ToDoListUnlimited {
 	 * @throws Exception 
 	 */
 	private void initialize() throws Exception {
+		
+		System.out.println("Starting application...");
 		info = deserializeList();
 		index = calcIndex(info);
-		
 		
 		frame = new JFrame("To-Do List Unlimited 2019");
 		frame.getContentPane().setBackground(SystemColor.window);
@@ -176,27 +177,26 @@ public class ToDoListUnlimited {
 		btnResetList.setBounds(210, 90, 95, 27);
 		frame.getContentPane().add(btnResetList);
 		
-		JLabel lblDescription = new JLabel("DESCRIPTION");
-		lblDescription.setBounds(20, 130, 100, 16);
-		frame.getContentPane().add(lblDescription);
+//		JLabel lblDescription = new JLabel("DESCRIPTION");
+//		lblDescription.setBounds(20, 130, 100, 16);
+//		frame.getContentPane().add(lblDescription);
+//		
+//		JLabel lblDueDate = new JLabel("DUE DATE");
+//		lblDueDate.setBounds(180, 130, 84, 16);
+//		frame.getContentPane().add(lblDueDate);
+//		
+//		JLabel lblStatus = new JLabel("STATUS");
+//		lblStatus.setBounds(340, 130, 61, 16);
+//		frame.getContentPane().add(lblStatus);
+//		
+//
+//		JLabel lblDateStartedFinished = new JLabel("DATE STARTED / FINISHED");
+//		lblStatus.setBounds(340, 130, 61, 16);
+//		frame.getContentPane().add(lblDateStartedFinished);
 		
-		JLabel lblDueDate = new JLabel("DUE DATE");
-		lblDueDate.setBounds(180, 130, 84, 16);
-		frame.getContentPane().add(lblDueDate);
-		
-		JLabel lblStatus = new JLabel("STATUS");
-		lblStatus.setBounds(340, 130, 61, 16);
-		frame.getContentPane().add(lblStatus);
-		
-
-		JLabel lblDateStartedFinished = new JLabel("DATE STARTED / FINISHED");
-		lblStatus.setBounds(340, 130, 61, 16);
-		frame.getContentPane().add(lblDateStartedFinished);
-		
-		
-		JLabel lblAction = new JLabel("PRIORITY");
-		lblAction.setBounds(500, 130, 61, 16);
-		frame.getContentPane().add(lblAction);
+//		JLabel lblAction = new JLabel("PRIORITY");
+//		lblAction.setBounds(500, 130, 61, 16);
+//		frame.getContentPane().add(lblAction);
 		
 		String[] options = {"Priority", "Description"};
 		
@@ -221,8 +221,13 @@ public class ToDoListUnlimited {
 		table.setDefaultEditor(Object.class, null); // disable ability to edit row when double clicking
 		table.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		table.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		table.setBounds(20, 158, 638, 251);
-		frame.getContentPane().add(table);
+		table.setBounds(20, 130, 638, 280);
+		
+		JScrollPane js = new JScrollPane(table,
+				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);//NEW
+		js.setBounds(20, 130, 638, 280);
+		js.setVisible(true);
+		frame.getContentPane().add(js);
 		
 	}
 	
