@@ -221,6 +221,7 @@ public class ToDoListUnlimited {
 		
 		String[] columnNames = {"Description", "Due Date", "Status", "Priority"};
 		table = new JTable(info, columnNames);
+		table.setDefaultEditor(Object.class, null); // disable ability to edit row when double clicking
 		table.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		table.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		table.setBounds(20, 158, 638, 251);
