@@ -62,10 +62,6 @@ public class ToDoListUnlimited {
 	ImageIcon editIcon = new ImageIcon("edit.png");
 	ImageIcon deleteIcon = new ImageIcon("delete.png");
 	ImageIcon printIcon = new ImageIcon("print.png");
-	
-
-	
-	
 
 	/**
 	 * Launch the application.
@@ -172,7 +168,8 @@ public class ToDoListUnlimited {
 		JButton btnResetList = new JButton("Start Over"); 
 		btnResetList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO: Needs functionality
+				clearAry(info); 
+				frame.repaint();
 			}
 		});
 		
@@ -261,7 +258,7 @@ public class ToDoListUnlimited {
 	 */
 
 	public static void sortByPriority() {
-		if(index > 0) // only sorts if atleast 2 item is present
+		if(index > 0) // only sorts if at least 2 item is present
 		{
 				  int n = info.length;
 				        for (int row = 0; row < index; row++) {
@@ -284,7 +281,7 @@ public class ToDoListUnlimited {
 	 */
 	public static void sortByDescription() {
 		
-		if(index > 0) // only sorts if atleast 2 item is present
+		if(index > 0) // only sorts if at least 2 item is present
 		{
 				  int n = info.length;
 				        for (int row = 0; row < index; row++) {
@@ -307,7 +304,7 @@ public class ToDoListUnlimited {
 	}
 	
 	/**
-	 * Helper function for bubbble sort. Swaps the row at the index provided
+	 * Helper function for bubble sort. Swaps the row at the index provided
 	 * and the subsequent row.
 	 */
 	private static void swapRows(int index)
@@ -315,13 +312,13 @@ public class ToDoListUnlimited {
 		UserNotes tempNote = new UserNotes(
 				info[index][0].toString(),
 				info[index][1].toString(),
-				info[index][2].toString(),
-				info[index][3].toString());
+				info[index][3].toString(),
+				info[index][2].toString());
 		
 //
         info[index] = info[index+1]; 
         Object[] insert = {tempNote.getDescription(), tempNote.getDueDate(), 
-				tempNote.getStatus(), tempNote.getPriority()};
+				tempNote.getUserStatus(), tempNote.getPriority()};
         info[index+1] = insert;
 		
 	}
@@ -545,18 +542,18 @@ public class ToDoListUnlimited {
 				ary[i][j] = null;
 			}
 		}
+		this.index = 0;
 	}
 	
 	public static void printList(Object[][] ary) {
 		File fileToSave = null;
 		PrintWriter out = null;
 		try {
-		JFrame parentFrame = new JFrame();
-		 
+		JFrame choseFileFrame = new JFrame();
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setDialogTitle("Select a file to save");   
 		 
-		int userSelection = fileChooser.showSaveDialog(parentFrame);
+		int userSelection = fileChooser.showSaveDialog(choseFileFrame);
 		 
 		if (userSelection == JFileChooser.APPROVE_OPTION) {
 		    fileToSave = fileChooser.getSelectedFile();

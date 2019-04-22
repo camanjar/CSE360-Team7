@@ -147,14 +147,6 @@ public class AddNote {
 						    "Please fill out the entire form before continuing",
 						    "Warning",
 						    JOptionPane.WARNING_MESSAGE);
-					
-				//TODO: Check uniqueness of the note!
-				//} 
-//				else if (isUnique(ToDoListUnlimited.info, descriptionField.getText())) { 
-//					JOptionPane.showMessageDialog(frame,
-//						    "Description is not unique,",
-//						    "Error",
-//						    JOptionPane.ERROR_MESSAGE);
 				} else { 
 					
 					if(!isNumeric(priorityField.getText())) { 
@@ -163,6 +155,11 @@ public class AddNote {
 							    "Error",
 							    JOptionPane.ERROR_MESSAGE);
 						
+					} else if (EditNote.checkMatch(ToDoListUnlimited.info, descriptionField.getText())) {
+						JOptionPane.showMessageDialog(frame,
+							    "You already have a note with this name, please type a unique description",
+							    "Warning",
+							    JOptionPane.WARNING_MESSAGE);
 					} else {
 						String noteStatus = comboBox.getSelectedItem().toString();
 						
@@ -178,7 +175,8 @@ public class AddNote {
 				        ///////////// STATUS ////////////////
 				        
 						Object[] insert = {newNote.getDescription(), newNote.getDueDate(), 
-								newNote.getStatus(), newNote.getPriority()};
+								newNote.getUserStatus(), newNote.getPriority()};
+						System.out.println(newNote.getUserStatus());
 						ToDoListUnlimited.info[ToDoListUnlimited.index] = insert;
 						ToDoListUnlimited.index++;
 						ToDoListUnlimited.sortByFeature();
@@ -200,22 +198,10 @@ public class AddNote {
 		frame.getContentPane().add(btnEnter);
 	}
 	
-	private static boolean isNumeric(String str) {
+	public static boolean isNumeric(String str) {
 		  return str.matches("-?\\d+(\\.\\d+)?");  
 		}
 	
-	//TODO:  Attempted code to check uniqueness of description
-//	private static boolean isUnique(Object[][] obj, String s) { 
-//		UserNotes dummy = new UserNotes(obj[][]);
-//			for (int i = 0; i < obj.length; i++) {
-//				for (int j = 0; j < obj[i].length; j++) {
-//					if (obj[i].equals(s)) { 
-//						return true; 
-//					}
-//				}
-//			}
-//		return false;
-//	}
 }
 	
 

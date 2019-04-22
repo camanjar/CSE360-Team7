@@ -6,14 +6,15 @@ public class UserNotes {
 	private String priority;
 	private String dateStarted; 
 	private String dateFinished;
-	private String status;
+	private String userStatus;
+	
 	//private enum STATUS { INPROGRESS, NOTSTARTED, FINISHED }; NOT NEEDED
 	
 	public UserNotes() { 
 		this.description = "";
 		this.dueDate = "";
 		this.priority = ""; 
-		this.status = "";
+		this.setUserStatus("");
 	}
 	
 	
@@ -21,7 +22,7 @@ public class UserNotes {
 		this.description = description;
 		this.dueDate = dueDate;
 		this.priority = priority;
-		this.status = status;
+		this.setUserStatus(status);
 	}
 	public String getDescription() {
 		return description;
@@ -38,9 +39,7 @@ public class UserNotes {
 	public String getPriority() {
 		return priority;
 	}
-	public String getStatus() {
-		return priority;
-	}
+	
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
@@ -68,6 +67,16 @@ public class UserNotes {
 	public String toString() {
 		return "UserNotes [description=" + description + ", dueDate=" + dueDate + 
 				", priority=" + priority + ", dateStarted=" + dateStarted + ", dateFinished=" + dateFinished + "]";
+	}
+
+
+	public String getUserStatus() {
+		return userStatus;
+	}
+
+
+	public void setUserStatus(String userStatus) {
+		this.userStatus = userStatus;
 	}
 	
 }
