@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -17,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JMenuBar;
 import java.awt.Panel;
 import javax.swing.JTable;
@@ -46,6 +48,7 @@ import java.awt.SystemColor;
 public class ToDoListUnlimited {
 
 	// CREATE GETTERS & SETTERS TO ENCAPSULATE THIS CLASS
+	private static File chosenFile;
 	public static JFrame frame;
 	public static int index;
 	public static JTable table;
@@ -139,6 +142,12 @@ public class ToDoListUnlimited {
 		JButton btnPrint = new JButton(printIcon);
 		btnPrint.setBounds(625, 88, 32, 32);
 		frame.getContentPane().add(btnPrint);
+		btnPrint.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				printList(info);
+			} 
+		});
+	
 		
 		JButton btnDeleteList = new JButton(deleteIcon); 
 		btnDeleteList.addActionListener(new ActionListener() {
@@ -153,7 +162,7 @@ public class ToDoListUnlimited {
 		JButton btnSaveList = new JButton("Save"); 
 		btnSaveList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO: Needs functionality
+				// parent component of the dialog
 			}
 		});
 		
@@ -538,10 +547,22 @@ public class ToDoListUnlimited {
 	}
 	
 	public static void printList(Object[][] ary) {
-		
+		File fileToSave = null;
 		PrintWriter out = null;
 		try {
-			out = new PrintWriter(new FileWriter("C:\\Users\\Gage Gommels\\git\\CSE360-Team7\\outputfile.txt"));
+		JFrame parentFrame = new JFrame();
+		 
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setDialogTitle("Select a file to save");   
+		 
+		int userSelection = fileChooser.showSaveDialog(parentFrame);
+		 
+		if (userSelection == JFileChooser.APPROVE_OPTION) {
+		    fileToSave = fileChooser.getSelectedFile();
+		    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+		}
+		
+			out = new PrintWriter(new FileWriter(fileToSave));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
@@ -559,5 +580,7 @@ public class ToDoListUnlimited {
 		}
 		out.close();
 	}
+	
+	
 }
 
