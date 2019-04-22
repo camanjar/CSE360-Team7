@@ -5,9 +5,11 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -93,7 +95,7 @@ public class ToDoListUnlimited {
 	private void initialize() throws Exception {
 		info = deserializeList();
 		index = calcIndex(info);
-		System.out.print(index);
+		
 		
 		frame = new JFrame("To-Do List Unlimited 2019");
 		frame.getContentPane().setBackground(SystemColor.window);
@@ -524,6 +526,38 @@ public class ToDoListUnlimited {
 			i++;
 		}
 		return index;
+	}
+	
+	public void clearAry(Object[][] ary) {
+		
+		for (int i = 0; i < ary.length; i++) {
+			for (int j = 0; j < 4; j++) {
+				ary[i][j] = null;
+			}
+		}
+	}
+	
+	public static void printList(Object[][] ary) {
+		
+		PrintWriter out = null;
+		try {
+			out = new PrintWriter(new FileWriter("C:\\Users\\Gage Gommels\\git\\CSE360-Team7\\outputfile.txt"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		
+		out.println("========================================================================");
+		out.println("                        TO DO LIST UNLIMITED                            "); 
+		out.println("========================================================================");
+		out.println("");
+		
+		int i = 0;
+		while (ary[i][0] != null) {
+			out.println(ary[i][0] + " [Due Date=" + ary[i][1] + ", Status=" + ary[i][2] + ", Priority=" + ary[i][3] + "]");
+			out.println("");
+			i++;
+		}
+		out.close();
 	}
 }
 
