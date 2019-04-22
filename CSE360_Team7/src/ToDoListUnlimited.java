@@ -92,6 +92,8 @@ public class ToDoListUnlimited {
 	 */
 	private void initialize() throws Exception {
 		info = deserializeList();
+		index = calcIndex(info);
+		System.out.print(index);
 		
 		frame = new JFrame("To-Do List Unlimited 2019");
 		frame.getContentPane().setBackground(SystemColor.window);
@@ -512,6 +514,16 @@ public class ToDoListUnlimited {
 			info[i][2] = sList.get(i);
 		}
 		return info;
+	}
+	
+	public int calcIndex(Object[][] ary) {
+		int index = 0;
+		int i = 0;
+		while (ary[i][0] != null) {
+			index++;
+			i++;
+		}
+		return index;
 	}
 }
 
