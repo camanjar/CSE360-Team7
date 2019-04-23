@@ -179,6 +179,14 @@ public class AddNote {
 						System.out.println(newNote.getUserStatus());
 						ToDoListUnlimited.info[ToDoListUnlimited.index] = insert;
 						ToDoListUnlimited.index++;
+						
+						//Sorts the array by priority
+						ToDoListUnlimited.setSortingPreference(0);
+						ToDoListUnlimited.sortByFeature();
+						
+						//checks for duplicates
+						reorderPriority(ToDoListUnlimited.info);
+						
 						ToDoListUnlimited.sortByFeature();
 						ToDoListUnlimited.frame.repaint();
 				
@@ -201,6 +209,28 @@ public class AddNote {
 	public static boolean isNumeric(String str) {
 		  return str.matches("-?\\d+(\\.\\d+)?");  
 		}
+	
+	/*
+	 * This method is to check and make sure that the priority does not have any duplicates when one gets added it bumps everything downward
+	 * 
+	 */
+	public void reorderPriority(Object[][] ary) {
+		int i = 0;
+		while (ary[i][0] != null) {
+			if(ary[i][3].equals(ary[i+1][3])) {
+				
+				ToDoListUnlimited.swapRows(i);
+				
+				i++;
+				
+				while(ary[i][0] != null) {
+					ary[i][3] = (Integer.parseInt((String) ary[i][3]) + 1) + "";
+					i++;
+				}
+			}
+			i++;
+		}	
+	}
 	
 }
 	

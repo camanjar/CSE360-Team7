@@ -312,7 +312,7 @@ public class ToDoListUnlimited {
 	 * Helper function for bubble sort. Swaps the row at the index provided
 	 * and the subsequent row.
 	 */
-	private static void swapRows(int index)
+	public static void swapRows(int index)
 	{
 		UserNotes tempNote = new UserNotes(
 				info[index][0].toString(),
@@ -360,7 +360,7 @@ public class ToDoListUnlimited {
 		}
 		
 		try {
-			FileOutputStream fos = new FileOutputStream("Descriptions");
+			FileOutputStream fos = new FileOutputStream("data\\Descriptions");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(dList);
 			oos.close();
@@ -370,7 +370,7 @@ public class ToDoListUnlimited {
 		}
 		
 		try {
-			FileOutputStream fos = new FileOutputStream("Dates");
+			FileOutputStream fos = new FileOutputStream("data\\Dates");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(dateList);
 			oos.close();
@@ -380,7 +380,7 @@ public class ToDoListUnlimited {
 		}
 		
 		try {
-			FileOutputStream fos = new FileOutputStream("Statuses");
+			FileOutputStream fos = new FileOutputStream("data\\Statuses");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(sList);
 			oos.close();
@@ -390,7 +390,7 @@ public class ToDoListUnlimited {
 		}
 		
 		try {
-			FileOutputStream fos = new FileOutputStream("Priorities");
+			FileOutputStream fos = new FileOutputStream("data\\Priorities");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(pList);
 			oos.close();
@@ -424,7 +424,7 @@ public class ToDoListUnlimited {
 		//This Deserializes the Descriptions
 		try
         {
-            FileInputStream fis = new FileInputStream("Descriptions");
+            FileInputStream fis = new FileInputStream("data\\Descriptions");
             ObjectInputStream ois = new ObjectInputStream(fis); 
             dList = (ArrayList) ois.readObject(); 
             ois.close();
@@ -445,7 +445,7 @@ public class ToDoListUnlimited {
 		//This Deserializes the Due Dates
 		try
         {
-            FileInputStream fis = new FileInputStream("Dates");
+            FileInputStream fis = new FileInputStream("data\\Dates");
             ObjectInputStream ois = new ObjectInputStream(fis);
             dateList = (ArrayList) ois.readObject();
             ois.close();
@@ -468,7 +468,7 @@ public class ToDoListUnlimited {
 		//This Deserializes the Status
 		try
         {
-            FileInputStream fis = new FileInputStream("Statuses");
+            FileInputStream fis = new FileInputStream("data\\Statuses");
             ObjectInputStream ois = new ObjectInputStream(fis);
             sList = (ArrayList) ois.readObject();
             ois.close();
@@ -490,7 +490,7 @@ public class ToDoListUnlimited {
 		//This Deserializes the priorities
 		try
         {
-            FileInputStream fis = new FileInputStream("Priorities");
+            FileInputStream fis = new FileInputStream("data\\Priorities");
             ObjectInputStream ois = new ObjectInputStream(fis);
             pList = (ArrayList) ois.readObject();
             ois.close();
