@@ -149,8 +149,27 @@ public class ToDoListUnlimited {
 		JButton btnDeleteList = new JButton(deleteIcon); 
 		btnDeleteList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO: Needs functionality
+				int column = 0;
+				int row = table.getSelectedRow();
+				if( row >= 0 && ToDoListUnlimited.index >= 1 && row != index) { // only execute the below code if a row is selected, and atleast 1 note exists 
+				String value = table.getModel().getValueAt(row, column).toString(); // returns the description of the todo
+				if(!value.equals("")) {
+					info[row] = info[index - 1]; 
+					info[index - 1] = info[index]; 
+					index = --index;
+					for(int i = row; i < index; i++) {
+						info[i][3] = (Integer.parseInt((String) info[row][3]) - 1) + "";
+					}
+					try {
+						ToDoListUnlimited.serializeList(ToDoListUnlimited.info);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					setSortingPreference(ToDoListUnlimited.sortingPreference); // do a re-sort after deletion
+				}
+				}
 			}
+			
 		});
 		
 		btnDeleteList.setBounds(100, 88, 29, 29);
@@ -170,6 +189,12 @@ public class ToDoListUnlimited {
 		btnResetList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clearAry(info); 
+				// Save after clearing
+				try {
+					ToDoListUnlimited.serializeList(ToDoListUnlimited.info);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 				frame.repaint();
 			}
 		});
@@ -548,6 +573,7 @@ public class ToDoListUnlimited {
 			}
 		}
 		this.index = 0;
+		
 	}
 	
 	public static void printList(Object[][] ary) {

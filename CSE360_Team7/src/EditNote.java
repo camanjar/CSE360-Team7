@@ -66,8 +66,8 @@ public class EditNote extends AddNote {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblTypeThe = new JLabel("Type the name of the note you want to update");
-		lblTypeThe.setBounds(6, 25, 301, 16);
+		JLabel lblTypeThe = new JLabel("Type the description of the note you want to update");
+		lblTypeThe.setBounds(6, 25, 351, 21);
 		frame.getContentPane().add(lblTypeThe);
 		
 		oldDesc = new JTextField();
