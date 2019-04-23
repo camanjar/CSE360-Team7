@@ -46,7 +46,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SortOrder;
 import javax.swing.border.BevelBorder;
 import java.awt.SystemColor;
-//NEWEST
+//New Addition
 public class ToDoListUnlimited { 
 
 	
@@ -60,10 +60,10 @@ public class ToDoListUnlimited {
 	private static int sortingPreference = 0;
 	
 	//ICONS
-	//ImageIcon addIcon = new ImageIcon(getClass().getResource("icons/add.png"));
-	ImageIcon editIcon = new ImageIcon("icons/edit.png");
-	ImageIcon deleteIcon = new ImageIcon("icons/delete.png");
-	ImageIcon printIcon = new ImageIcon("icons/print.png");
+	ImageIcon addIcon = new ImageIcon(getClass().getResource("/icons/add.png"));
+	ImageIcon editIcon = new ImageIcon(getClass().getResource("/icons/edit.png"));
+	ImageIcon deleteIcon = new ImageIcon(getClass().getResource("/icons/delete.png"));
+	ImageIcon printIcon = new ImageIcon(getClass().getResource("/icons/print.png"));
 
 	/**
 	 * Launch the application.
@@ -96,8 +96,6 @@ public class ToDoListUnlimited {
 	private void initialize() throws Exception {
 		
 		System.out.println("Starting application...");
-		File dir = new File("data");
-        dir.mkdir();
 		info = deserializeList();
 		index = calcIndex(info);
 		
@@ -114,7 +112,7 @@ public class ToDoListUnlimited {
 		lblTodoListUnlimited.setToolTipText("Displays application name");
 		frame.getContentPane().add(lblTodoListUnlimited);
 		
-		btnAddItem = new JButton("Add");
+		btnAddItem = new JButton(addIcon);
 		btnAddItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddNote newNote = new AddNote();
@@ -122,10 +120,11 @@ public class ToDoListUnlimited {
 			}
 		});
 		
-		btnAddItem.setBounds(20, 88, 54, 29);
+		btnAddItem.setBounds(20, 88, 29, 29);
 		frame.getContentPane().add(btnAddItem);
 		
-		JButton btnEditItem = new JButton("Edit");
+		
+		JButton btnEditItem = new JButton(editIcon);
 		btnEditItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EditNote editNote = new EditNote();
@@ -133,15 +132,15 @@ public class ToDoListUnlimited {
 			}
 		});
 		
-		btnEditItem.setBounds(73, 88, 60, 29);
+		btnEditItem.setBounds(60, 88, 29, 29);
 		frame.getContentPane().add(btnEditItem);
 		
 		JLabel lblSortBy = new JLabel("Sort By:");
-		lblSortBy.setBounds(406, 93, 47, 16);
+		lblSortBy.setBounds(425, 93, 47, 16);
 		frame.getContentPane().add(lblSortBy);
 		
-		JButton btnPrint = new JButton("Print");
-		btnPrint.setBounds(598, 86, 60, 32);
+		JButton btnPrint = new JButton(printIcon);
+		btnPrint.setBounds(625, 88, 32, 32);
 		frame.getContentPane().add(btnPrint);
 		btnPrint.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -150,7 +149,7 @@ public class ToDoListUnlimited {
 		});
 	
 		
-		JButton btnDeleteList = new JButton("Delete"); 
+		JButton btnDeleteList = new JButton(deleteIcon); 
 		btnDeleteList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int column = 0;
@@ -176,7 +175,7 @@ public class ToDoListUnlimited {
 			
 		});
 		
-		btnDeleteList.setBounds(132, 88, 80, 29);
+		btnDeleteList.setBounds(100, 88, 29, 29);
 		frame.getContentPane().add(btnDeleteList);
 		
 		JButton btnSaveList = new JButton("Save"); 
@@ -190,7 +189,7 @@ public class ToDoListUnlimited {
 			}
 		});
 		
-		btnSaveList.setBounds(217, 89, 80, 27);
+		btnSaveList.setBounds(135, 90, 80, 27);
 		frame.getContentPane().add(btnSaveList);
 		
 		JButton btnResetList = new JButton("Start Over"); 
@@ -207,7 +206,7 @@ public class ToDoListUnlimited {
 			}
 		});
 		
-		btnResetList.setBounds(299, 89, 95, 27);
+		btnResetList.setBounds(210, 90, 95, 27);
 		frame.getContentPane().add(btnResetList);
 		
 //		JLabel lblDescription = new JLabel("DESCRIPTION");
@@ -235,7 +234,7 @@ public class ToDoListUnlimited {
 		
 		JComboBox<?> sortBox = new JComboBox<Object>(options);
 		sortBox.setSelectedIndex(0);
-		sortBox.setBounds(465, 89, 126, 27);
+		sortBox.setBounds(480, 89, 126, 27);
 		frame.getContentPane().add(sortBox);
 		// On change of sort preference, do a new sort on the view
 		sortBox.addActionListener(new ActionListener() {
