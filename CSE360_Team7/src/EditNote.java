@@ -3,17 +3,24 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
-
+//new add
 public class EditNote extends AddNote {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField oldDesc;
+	private JTextField newDesc;
+	private String date;
 	private JLabel lblNewDescription;
 	private JTextField textField_2;
 	
@@ -55,7 +62,7 @@ public class EditNote extends AddNote {
 	 */
 	private void initializeEdit() {
 		frame = new JFrame("Update Note");
-		frame.setBounds(100, 100, 413, 283);
+		frame.setBounds(100, 100, 415, 289);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -63,31 +70,31 @@ public class EditNote extends AddNote {
 		lblTypeThe.setBounds(6, 25, 301, 16);
 		frame.getContentPane().add(lblTypeThe);
 		
-		textField = new JTextField();
-		textField.setBounds(6, 41, 400, 26);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		oldDesc = new JTextField();
+		oldDesc.setBounds(6, 41, 400, 26);
+		frame.getContentPane().add(oldDesc);
+		oldDesc.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(6, 93, 400, 26);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		newDesc = new JTextField();
+		newDesc.setBounds(6, 93, 400, 26);
+		frame.getContentPane().add(newDesc);
+		newDesc.setColumns(10);
 		
 		lblNewDescription = new JLabel("New Description");
 		lblNewDescription.setBounds(6, 77, 118, 16);
 		frame.getContentPane().add(lblNewDescription);
 		
-		JComboBox<?> monthsBox = new JComboBox<Object>(MONTHS);
-		monthsBox.setBounds(117, 131, 84, 27);
-		frame.getContentPane().add(monthsBox);
+		JComboBox<?> months = new JComboBox<Object>(MONTHS);
+		months.setBounds(117, 131, 84, 27);
+		frame.getContentPane().add(months);
 		
-		JComboBox<?> daysBox = new JComboBox<Object>(DAYS);
-		daysBox.setBounds(213, 131, 76, 27);
-		frame.getContentPane().add(daysBox);
+		JComboBox<?> days = new JComboBox<Object>(DAYS);
+		days.setBounds(213, 131, 76, 27);
+		frame.getContentPane().add(days);
 		
-		JComboBox<?> yearBox = new JComboBox<Object>(YEARS);
-		yearBox.setBounds(301, 131, 95, 27);
-		frame.getContentPane().add(yearBox);
+		JComboBox<?> year = new JComboBox<Object>(YEARS);
+		year.setBounds(301, 131, 95, 27);
+		frame.getContentPane().add(year);
 		
 //
 		
@@ -100,17 +107,80 @@ public class EditNote extends AddNote {
 		frame.getContentPane().add(lblNewPriority);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(102, 179, 76, 26);
+		textField_2.setBounds(89, 179, 76, 26);
 		frame.getContentPane().add(textField_2);
 		textField_2.setColumns(10);
 		
 		JButton btnUpdateNote = new JButton("Update Note");
-		btnUpdateNote.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//TODO: Add update note functionality
-			}
-		});
 		btnUpdateNote.setBounds(146, 226, 117, 29);
 		frame.getContentPane().add(btnUpdateNote);
+		
+		JLabel lblNewStatus = new JLabel("New Status");
+		lblNewStatus.setBounds(177, 184, 76, 16);
+		frame.getContentPane().add(lblNewStatus);
+		
+		String[] options = {"Not Started", "In Progress", "Finished"};
+		
+		JComboBox statusBox = new JComboBox(options);
+		statusBox.setBounds(252, 180, 144, 27);
+		frame.getContentPane().add(statusBox);
+		
+		
+		btnUpdateNote.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!isNumeric(textField_2.getText())) { 
+					JOptionPane.showMessageDialog(frame,
+						    "Priority should be an integer value\n Example: 1",
+						    "Error",
+						    JOptionPane.ERROR_MESSAGE);
+				} else 
+				if (checkMatch(ToDoListUnlimited.info, oldDesc.getText())) {
+					date = months.getSelectedItem().toString() + "/" + 
+							days.getSelectedItem().toString() + "/" + 
+							year.getSelectedItem().toString();
+					
+					UserNotes newNote = new UserNotes(newDesc.getText(), date,
+							textField_2.getText(), statusBox.getSelectedItem().toString());
+					//////// EDIT ///////
+					Object[] insert = {newNote.getDescription(), newNote.getDueDate(), 
+							newNote.getUserStatus(), newNote.getPriority()};
+					
+					//replace(ToDoListUnlimited.info, oldDesc.getText(), insert);
+					ToDoListUnlimited.info[findIndexOf(ToDoListUnlimited.info, oldDesc.getText())] = insert;
+					ToDoListUnlimited.sortByFeature();
+					ToDoListUnlimited.frame.repaint();
+					frame.dispose();
+				} else { 
+					
+				JOptionPane.showMessageDialog(frame,
+					    "No note found by that name, please try again",
+					    "Warning",
+					    JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
+	}
+	
+	public static boolean checkMatch(Object[][] ary, String s) {
+		int i = 0;
+		while (ary[i][0] != null) {
+			if (ary[i][0].toString().equals(s)) {
+				return true;
+			} else {
+				i++;
+			}
+		}
+		return false;
+	}
+	
+	public int findIndexOf(Object[][] ary, String s) { 
+		int i = 0;
+		while (ary[i][0] != null) {
+			if (ary[i][0].toString().equals(s)) {
+				return i;
+			}
+			i++;
+		}
+		return 0;
 	}
 }
