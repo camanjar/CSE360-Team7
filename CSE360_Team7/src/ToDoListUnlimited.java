@@ -122,7 +122,7 @@ public class ToDoListUnlimited {
 			}
 		});
 		
-		btnAddItem.setBounds(20, 88, 29, 29);
+		btnAddItem.setBounds(20, 88, 54, 29);
 		frame.getContentPane().add(btnAddItem);
 		
 		JButton btnEditItem = new JButton("Edit");
@@ -133,15 +133,15 @@ public class ToDoListUnlimited {
 			}
 		});
 		
-		btnEditItem.setBounds(60, 88, 29, 29);
+		btnEditItem.setBounds(73, 88, 60, 29);
 		frame.getContentPane().add(btnEditItem);
 		
 		JLabel lblSortBy = new JLabel("Sort By:");
-		lblSortBy.setBounds(425, 93, 47, 16);
+		lblSortBy.setBounds(406, 93, 47, 16);
 		frame.getContentPane().add(lblSortBy);
 		
 		JButton btnPrint = new JButton("Print");
-		btnPrint.setBounds(605, 88, 60, 32);
+		btnPrint.setBounds(598, 86, 60, 32);
 		frame.getContentPane().add(btnPrint);
 		btnPrint.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -176,7 +176,7 @@ public class ToDoListUnlimited {
 			
 		});
 		
-		btnDeleteList.setBounds(95, 88, 80, 29);
+		btnDeleteList.setBounds(132, 88, 80, 29);
 		frame.getContentPane().add(btnDeleteList);
 		
 		JButton btnSaveList = new JButton("Save"); 
@@ -190,7 +190,7 @@ public class ToDoListUnlimited {
 			}
 		});
 		
-		btnSaveList.setBounds(173, 89, 80, 27);
+		btnSaveList.setBounds(217, 89, 80, 27);
 		frame.getContentPane().add(btnSaveList);
 		
 		JButton btnResetList = new JButton("Start Over"); 
@@ -207,7 +207,7 @@ public class ToDoListUnlimited {
 			}
 		});
 		
-		btnResetList.setBounds(251, 89, 95, 27);
+		btnResetList.setBounds(299, 89, 95, 27);
 		frame.getContentPane().add(btnResetList);
 		
 //		JLabel lblDescription = new JLabel("DESCRIPTION");
@@ -235,7 +235,7 @@ public class ToDoListUnlimited {
 		
 		JComboBox<?> sortBox = new JComboBox<Object>(options);
 		sortBox.setSelectedIndex(0);
-		sortBox.setBounds(480, 89, 126, 27);
+		sortBox.setBounds(465, 89, 126, 27);
 		frame.getContentPane().add(sortBox);
 		// On change of sort preference, do a new sort on the view
 		sortBox.addActionListener(new ActionListener() {
