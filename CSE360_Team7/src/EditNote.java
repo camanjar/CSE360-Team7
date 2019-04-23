@@ -147,6 +147,11 @@ public class EditNote extends AddNote {
 					
 					//replace(ToDoListUnlimited.info, oldDesc.getText(), insert);
 					ToDoListUnlimited.info[findIndexOf(ToDoListUnlimited.info, oldDesc.getText())] = insert;
+					try {
+                        ToDoListUnlimited.serializeList(ToDoListUnlimited.info);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
 					ToDoListUnlimited.sortByFeature();
 					ToDoListUnlimited.frame.repaint();
 					frame.dispose();

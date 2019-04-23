@@ -17,6 +17,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuBar;
@@ -58,10 +60,10 @@ public class ToDoListUnlimited {
 	private static int sortingPreference = 0;
 	
 	//ICONS
-	ImageIcon addIcon = new ImageIcon("add.png");
-	ImageIcon editIcon = new ImageIcon("edit.png");
-	ImageIcon deleteIcon = new ImageIcon("delete.png");
-	ImageIcon printIcon = new ImageIcon("print.png");
+	//ImageIcon addIcon = new ImageIcon(getClass().getResource("icons/add.png"));
+	ImageIcon editIcon = new ImageIcon("icons/edit.png");
+	ImageIcon deleteIcon = new ImageIcon("icons/delete.png");
+	ImageIcon printIcon = new ImageIcon("icons/print.png");
 
 	/**
 	 * Launch the application.
@@ -94,6 +96,8 @@ public class ToDoListUnlimited {
 	private void initialize() throws Exception {
 		
 		System.out.println("Starting application...");
+		File dir = new File("data");
+        dir.mkdir();
 		info = deserializeList();
 		index = calcIndex(info);
 		
@@ -110,7 +114,7 @@ public class ToDoListUnlimited {
 		lblTodoListUnlimited.setToolTipText("Displays application name");
 		frame.getContentPane().add(lblTodoListUnlimited);
 		
-		btnAddItem = new JButton(addIcon);
+		btnAddItem = new JButton("+");
 		btnAddItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddNote newNote = new AddNote();
@@ -121,7 +125,8 @@ public class ToDoListUnlimited {
 		btnAddItem.setBounds(20, 88, 29, 29);
 		frame.getContentPane().add(btnAddItem);
 		
-		JButton btnEditItem = new JButton(editIcon);
+		
+		JButton btnEditItem = new JButton("E");
 		btnEditItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EditNote editNote = new EditNote();
@@ -136,7 +141,7 @@ public class ToDoListUnlimited {
 		lblSortBy.setBounds(425, 93, 47, 16);
 		frame.getContentPane().add(lblSortBy);
 		
-		JButton btnPrint = new JButton(printIcon);
+		JButton btnPrint = new JButton("P");
 		btnPrint.setBounds(625, 88, 32, 32);
 		frame.getContentPane().add(btnPrint);
 		btnPrint.addActionListener(new ActionListener() {
@@ -146,7 +151,7 @@ public class ToDoListUnlimited {
 		});
 	
 		
-		JButton btnDeleteList = new JButton(deleteIcon); 
+		JButton btnDeleteList = new JButton("D"); 
 		btnDeleteList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int column = 0;
@@ -178,7 +183,11 @@ public class ToDoListUnlimited {
 		JButton btnSaveList = new JButton("Save"); 
 		btnSaveList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// parent component of the dialog
+				try {
+                    ToDoListUnlimited.serializeList(ToDoListUnlimited.info);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
 			}
 		});
 		
@@ -440,10 +449,10 @@ public class ToDoListUnlimited {
 		ArrayList<Object> sList = new ArrayList<>();
 		Object[][] info = new Object[50][4];
 		
-		info[0][0] = "Example Desc";
-		info[0][1] = "01/01/2019";
-		info[0][2] = "Done";
-		info[0][3] = "1";
+//		info[0][0] = "Example Desc";
+//		info[0][1] = "01/01/2019";
+//		info[0][2] = "Done";
+//		info[0][3] = "1";
 		
 		
 		//This Deserializes the Descriptions
