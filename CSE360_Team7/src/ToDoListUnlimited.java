@@ -46,7 +46,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SortOrder;
 import javax.swing.border.BevelBorder;
 import java.awt.SystemColor;
-//New Addition
+//NEWEST
 public class ToDoListUnlimited { 
 
 	
@@ -114,7 +114,7 @@ public class ToDoListUnlimited {
 		lblTodoListUnlimited.setToolTipText("Displays application name");
 		frame.getContentPane().add(lblTodoListUnlimited);
 		
-		btnAddItem = new JButton("+");
+		btnAddItem = new JButton("Add");
 		btnAddItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddNote newNote = new AddNote();
@@ -125,8 +125,7 @@ public class ToDoListUnlimited {
 		btnAddItem.setBounds(20, 88, 29, 29);
 		frame.getContentPane().add(btnAddItem);
 		
-		
-		JButton btnEditItem = new JButton("E");
+		JButton btnEditItem = new JButton("Edit");
 		btnEditItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EditNote editNote = new EditNote();
@@ -141,8 +140,8 @@ public class ToDoListUnlimited {
 		lblSortBy.setBounds(425, 93, 47, 16);
 		frame.getContentPane().add(lblSortBy);
 		
-		JButton btnPrint = new JButton("P");
-		btnPrint.setBounds(625, 88, 32, 32);
+		JButton btnPrint = new JButton("Print");
+		btnPrint.setBounds(605, 88, 60, 32);
 		frame.getContentPane().add(btnPrint);
 		btnPrint.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -151,7 +150,7 @@ public class ToDoListUnlimited {
 		});
 	
 		
-		JButton btnDeleteList = new JButton("D"); 
+		JButton btnDeleteList = new JButton("Delete"); 
 		btnDeleteList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int column = 0;
@@ -177,7 +176,7 @@ public class ToDoListUnlimited {
 			
 		});
 		
-		btnDeleteList.setBounds(100, 88, 29, 29);
+		btnDeleteList.setBounds(95, 88, 80, 29);
 		frame.getContentPane().add(btnDeleteList);
 		
 		JButton btnSaveList = new JButton("Save"); 
@@ -191,7 +190,7 @@ public class ToDoListUnlimited {
 			}
 		});
 		
-		btnSaveList.setBounds(135, 90, 80, 27);
+		btnSaveList.setBounds(173, 89, 80, 27);
 		frame.getContentPane().add(btnSaveList);
 		
 		JButton btnResetList = new JButton("Start Over"); 
@@ -208,7 +207,7 @@ public class ToDoListUnlimited {
 			}
 		});
 		
-		btnResetList.setBounds(210, 90, 95, 27);
+		btnResetList.setBounds(251, 89, 95, 27);
 		frame.getContentPane().add(btnResetList);
 		
 //		JLabel lblDescription = new JLabel("DESCRIPTION");
